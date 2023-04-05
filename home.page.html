@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Guess the Word!
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-item no-padding id='instruction'>
+      How to Play: The goal is to answer the question.
+      Enter a letter to determine if it is part of the word.
+    </ion-item>
+  </ion-card>
+  
+  <ion-content class="ion-padding">
+    <!-- Splash screen -->
+    <div *ngIf="!currentWord && !gameOver" class="splash-screen">
+      <h1>Welcome to Guess the Word Game!</h1>
+      <p>Click the button to start the game.</p>
+      <ion-button color="primary" expand="block" (click)="nextWord()">Start Game</ion-button>
+    </div>
+  
+    <!-- Game screen -->
+    <div *ngIf="currentWord && !gameOver" class="game-screen">
+      <!-- Clue -->
+      <h3>{{ currentWord.clue }}</h3>
+  
+      <!-- Word display -->
+      <div class="word-display">
+        <span *ngFor="let letter of currentWord.word.split('')">
+          {{ currentWord.guessedLetters.indexOf(letter) !== -1 ? letter : '_' }}
+        </span>
+      </div>
+  
+      <!-- Letter input -->
+      <ion-item>
+        <ion-label position="floating">Enter a letter:</ion-label>
+        <ion-input type="text"  #guessInput></ion-input>    
+      </ion-item>
+
+      <!-- Guess button -->
+      <ion-button color="danger" expand="block" (click)="submitGuess()">Guess</ion-button>
+      
+      <!-- Letters Guessed -->
+      <ion-card color = "medium">
+        <ion-label position="floating">Letters Guessed:</ion-label>
+        <h4>{{ guessesSoFar }}  </h4>   
+      </ion-card>
+    </div>
+  
+    <!-- Game over screen -->
+    <div *ngIf="gameOver" class="game-over-screen">
+      <h2>{{ gameResult }}</h2>
+      <ion-button color="primary" expand="block" (click)="nextWord()">Next Word</ion-button>
+    </div>
+  </ion-content>
