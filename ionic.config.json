@@ -1,0 +1,7 @@
+{
+  "name": "guessTheWordv4",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
